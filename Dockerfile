@@ -3,12 +3,10 @@ FROM tidair/smurf2mce-base:R0.0.1
 # Get the FW repository (we actually just need the mcs and pyrogue.tar.gz file)
 # Needed to fix the githash in the name of the files as it was not correct.
 WORKDIR /usr/local/src
-RUN git clone https://github.com/slaclab/cryo-det.git && \
-	mkdir -p /tmp/fw && \
-	mv ./cryo-det/firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000001-20181018084011-mdewart-ed07dde0.mcs.gz \
-	/tmp/fw/MicrowaveMuxBpEthGen2-0x00000001-20181018084011-mdewart-ed07dde9.mcs.gz && \
-    mv ./cryo-det/firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000001-20181018084011-mdewart-ed07dde0-newRTM-fastEta-dirty.python.tar.gz \
-    /tmp/fw/MicrowaveMuxBpEthGen2-0x00000001-20181018084011-mdewart-ed07dde9-newRTM-fastEta-dirty.python.tar.gz && \
+RUN git clone https://github.com/slaclab/cryo-det.git -b uram && \
+    mkdir -p /tmp/fw && \
+    mv ./cryo-det/firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000001-20190401151049-mdewart-0c30e980.mcs.gz /tmp/fw/ && \
+    mv ./cryo-det/firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000001-20190401151049-mdewart-0c30e980.pyrogue.tar.gz /tmp/fw/ && \
     mv ./cryo-det/firmware/targets/MicrowaveMuxBpEthGen2/config /tmp/fw/ && \
     rm -rf cryo-det && \
     chmod -R a+rw /tmp/fw/
