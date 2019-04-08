@@ -1,4 +1,4 @@
-FROM tidair/smurf2mce-base:R0.0.0
+FROM tidair/smurf2mce-base:R0.0.1
 
 # Get the FW repository (we actually just need the mcs and pyrogue.tar.gz file)
 # Needed to fix the githash in the name of the files as it was not correct.
