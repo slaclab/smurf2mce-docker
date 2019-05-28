@@ -1,4 +1,4 @@
-FROM tidair/smurf2mce-base:R2.0.0
+FROM tidair/smurf2mce-base:R2.0.1
 
 # Get the FW MCS from the git repository (version ed07dde0)
 WORKDIR /usr/local/src
