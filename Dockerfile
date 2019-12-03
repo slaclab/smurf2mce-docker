@@ -1,4 +1,4 @@
-FROM tidair/smurf2mce-base:R2.1.4
+FROM tidair/smurf2mce-base:R3.1.1
 
 # Prepare directory to hold FW and config file
 RUN mkdir -p /tmp/fw/config && chmod -R a+rw /tmp/fw/
