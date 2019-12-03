@@ -13,7 +13,7 @@ RUN git clone https://github.com/slaclab/cryo-det.git && \
     rm -rf cryo-det
 
 # Get the pyrogue tarball from the local files on this repository
-COPY local_files/MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45-etaMagFix.pyrogue.tar.gz /tmp/fw
+COPY local_files/MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45-etaMagFix-axiFix.pyrogue.tar.gz /tmp/fw
 
 # Get the configuration file from the smurf configuration repository
 WORKDIR /tmp
