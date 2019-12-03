@@ -3,17 +3,11 @@ FROM tidair/smurf2mce-base:R3.1.1
 # Prepare directory to hold FW and config file
 RUN mkdir -p /tmp/fw/config && chmod -R a+rw /tmp/fw/
 
-# Get the FW MCS from the git repository
-WORKDIR /tmp
-RUN git clone https://github.com/slaclab/cryo-det.git && \
-    cd cryo-det && \
-    git checkout 26ed168478222480e68fec62bfdfa16164173ddd && \
-    mv ./firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45.mcs.gz  /tmp/fw/ && \
-    cd .. && \
-    rm -rf cryo-det
+# Get the FW MCS from the local files on this repository
+COPY local_files/MicrowaveMuxBpEthGen2-0x00000020-20190916220655-mdewart-3854241.mcs.gz /tmp/fw/
 
 # Get the pyrogue tarball from the local files on this repository
-COPY local_files/MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45-etaMagFix-axiFix-serialSpeedup.pyrogue.tar.gz /tmp/fw
+COPY local_files/MicrowaveMuxBpEthGen2-0x00000020-20190915203851-mdewart-3854241-enpirionDisabled.pyrogue.tar.gz /tmp/fw/
 
 # Get the configuration file from the smurf configuration repository
 WORKDIR /tmp
