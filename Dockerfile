@@ -22,4 +22,4 @@ RUN git clone https://github.com/slaclab/smurf_cfg.git -b v0.0.0 && \
 	rm -rf smurf_cfg
 
 WORKDIR /
-ENTRYPOINT ["start_server.sh","-c","eth-rssi-interleaved","-d","/tmp/fw/config/defaults_lbonly_c02_bay0.yml","-f","Int16","-b","524288","--disable-bay1"]
+ENTRYPOINT ["start_server.sh","-d","/tmp/fw/config/defaults_lbonly_c02_bay0.yml","-f","Int16","-b","524288","--disable-bay1"]
