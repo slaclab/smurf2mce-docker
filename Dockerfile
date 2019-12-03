@@ -1,17 +1,25 @@
 FROM tidair/smurf2mce-base:R2.1.4
 
-# Get the FW MCS from the git repository (version ed07dde0)
-WORKDIR /usr/local/src
-RUN git clone https://github.com/slaclab/cryo-det.git && \
-    mkdir -p /tmp/fw/config && \
-    mv ./cryo-det/firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000001-20181018084011-mdewart-ed07dde0.mcs.gz /tmp/fw/ &&\
-    rm -rf cryo-det && \
-    chmod -R a+rw /tmp/fw/
+# Prepare directory to hold FW and config file
+RUN mkdir -p /tmp/fw/config && chmod -R a+rw /tmp/fw/
 
-# The pyrogue and config file are modified local copies, which were added to this repository.
-# Add then to the docker image
-COPY local_files/*pyrogue.tar.gz /tmp/fw/
-COPY local_files/*.yml /tmp/fw/config/
+# Get the FW MCS from the git repository
+WORKDIR /tmp
+RUN git clone https://github.com/slaclab/cryo-det.git && \
+	cd cryo-det && \
+	git checkout 26ed168478222480e68fec62bfdfa16164173ddd && \
+	mv ./firmware/targets/MicrowaveMuxBpEthGen2/images/MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45.mcs.gz  /tmp/fw/ && \
+	cd .. && \
+    rm -rf cryo-det
+
+# Get the pyrogue tarball from the local files on this repository
+COPY local_files/MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45-etaMagFix.pyrogue.tar.gz /tmp/fw
+
+# Get the configuration file from the smurf configuration repository
+WORKDIR /tmp
+RUN git clone https://github.com/slaclab/smurf_cfg.git -b v0.0.0 && \
+	mv ./smurf_cfg/defaults/defaults_lbonly_c02_bay0.yml /tmp/fw/config/ && \
+	rm -rf smurf_cfg
 
 WORKDIR /
-ENTRYPOINT ["start_server.sh","-S","shm-smrf-sp01","-N","2","-e","smurf_server","-w","smurf_server","-c","eth-rssi-interleaved","-d","/tmp/fw/config/defaults_dspv2_hbonly_c02_bay0.yml","-f","Int16","-b","524288","--disable-bay1"]
+ENTRYPOINT ["start_server.sh","-S","shm-smrf-sp01","-c","eth-rssi-interleaved","-d","/tmp/fw/config/defaults_lbonly_c02_bay0.yml","-f","Int16","-b","524288","--disable-bay1"]
