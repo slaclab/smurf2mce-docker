@@ -1,0 +1,5 @@
+# Released Version Description
+
+Version      | smurf2mce-base version | MCS file                                                                 | pyrogue tarball                                                                          | configuration file                    | Server arguments
+-------------|------------------------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------|-----------------------------------
+R3.0.0.0.0   | R2.1.4                 | MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45.mcs.gz   | MicrowaveMuxBpEthGen2-0x00000016-20190724191903-mdewart-8234f45-etaMagFix.pyrogue.tar.gz | defaults_lbonly_c02_bay0.yml (v0.0.0) | -f Int16 -b 524288 --disable-bay1
